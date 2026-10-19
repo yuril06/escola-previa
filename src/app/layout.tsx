@@ -18,6 +18,7 @@ const corpo = Figtree({
   display: "swap",
 });
 
+const capa = escola.hero.fotos[0];
 const titulo = `${escola.nomeCompleto} | ${escola.endereco.cidade}`;
 
 export const metadata: Metadata = {
@@ -41,13 +42,13 @@ export const metadata: Metadata = {
     siteName: escola.nomeCompleto,
     title: titulo,
     description: escola.descricao,
-    images: [{ url: escola.video.capa, width: 1600, height: 1067, alt: escola.video.capaAlt }],
+    images: [{ url: capa.src, width: 1600, height: 1067, alt: capa.alt }],
   },
   twitter: {
     card: "summary_large_image",
     title: titulo,
     description: escola.descricao,
-    images: [escola.video.capa],
+    images: [capa.src],
   },
   robots: { index: true, follow: true },
 };
@@ -69,7 +70,7 @@ const jsonLd = {
   name: escola.nomeCompleto,
   description: escola.descricao,
   url: escola.siteUrl,
-  image: escola.video.capa,
+  image: capa.src,
   telephone: escola.contato.telefone,
   email: escola.contato.email,
   address: {
@@ -102,6 +103,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="pt-BR" className={`${display.variable} ${corpo.variable}`}>
       <head>
         <style dangerouslySetInnerHTML={{ __html: cssVars }} />
+        {/* Sem JavaScript, as entradas animadas não podem esconder o conteúdo */}
+        <noscript>
+          <style>{`[style*="opacity:0"]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

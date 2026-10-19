@@ -5,12 +5,13 @@
  *
  *  Para personalizar para uma nova escola:
  *  1. Troque os textos, contatos e cores abaixo.
- *  2. Solte logo, fotos e vídeo em /public/escola com os NOMES indicados em
+ *  2. Solte logo e fotos em /public/escola com os NOMES indicados em
  *     cada  foto("nome.jpg", ...)  abaixo. Se o arquivo existir, ele é usado
  *     automaticamente; se não existir, aparece a foto de exemplo do Unsplash.
  *  3. Rode `npm run blur` (placeholders desfocados) e reinicie o `npm run dev`.
  *
  *  Lista completa de arquivos e tamanhos: public/escola/LEIA-ME.txt
+ *  Regras visuais (forma, cores, tipos): DESIGN.md na raiz.
  * ============================================================================
  */
 
@@ -46,12 +47,14 @@ export const escola = {
   nome: "Casa Jacarandá",
   nomeCompleto: "Casa Jacarandá – Berçário e Educação Infantil",
   slogan: "Berçário e Educação Infantil",
+  /** Palavra construída em blocos no rodapé (curta: 6 a 10 letras). */
+  marcaRodape: "Jacarandá",
   descricao:
-    "Berçário e educação infantil em São Bernardo do Campo para bebês a partir de 4 meses até 5 anos. Período integral, câmeras com acesso dos pais, nutricionista e adaptação gradual.",
+    "Berçário e educação infantil no Jardim do Mar, em São Bernardo do Campo, do 4º mês aos 5 anos. Das 7h às 19h, com câmeras para os pais, cozinha própria com nutricionista e adaptação gradual.",
   /**
    * Logo: detectado automaticamente em /public/escola/logo.svg (ou .png/.webp).
    * Use um logo HORIZONTAL com fundo transparente. Sem arquivo, aparece o logo em texto.
-   * `logo-branco` (opcional) é a versão clara usada no rodapé escuro.
+   * `logo-branco` (opcional) é a versão clara usada sobre fundos escuros.
    */
   logo: {
     imagem: arquivoLocal("logo.svg", "logo.png", "logo.webp"),
@@ -65,15 +68,15 @@ export const escola = {
 
   // ---------------------------------------------------------------------------
   // CORES — viram CSS variables usadas pelo Tailwind (bg-primaria, text-destaque…)
-  // Use cores com bom contraste com branco para `primaria` (botões).
+  // `primaria` precisa de bom contraste com branco (botões e formulário).
   // ---------------------------------------------------------------------------
   cores: {
-    primaria: "#2E7552", // verde folha — botões, títulos de destaque
-    secundaria: "#F2B441", // amarelo sol — selos, detalhes
-    suave: "#9CCBE8", // azul céu — fundos e formas
-    destaque: "#D9506C", // frutas vermelhas — acentos pontuais
+    primaria: "#2E7552", // verde folha — acento: botões, links, formulário
+    secundaria: "#F2B441", // amarelo sol — pétalas e campos
+    suave: "#9CCBE8", // azul céu — pétalas e campos
+    destaque: "#D9506C", // frutas vermelhas — pétalas e campos
     fundo: "#FBF8F2", // off-white
-    texto: "#22302A", // cor do texto principal
+    texto: "#22302A", // tinta de todo texto corrido
   },
 
   // ---------------------------------------------------------------------------
@@ -110,225 +113,222 @@ export const escola = {
   },
 
   // ---------------------------------------------------------------------------
-  // HERO + VÍDEO TOUR
+  // HERO
   // ---------------------------------------------------------------------------
   hero: {
-    selo: "Matrículas 2027 abertas",
-    titulo: "Conheça cada cantinho da escola antes mesmo da visita",
-    /** Trecho do título que ganha o sublinhado desenhado à mão (precisa existir no título). */
-    tituloDestaque: "cada cantinho",
-    /** Prova social ao lado dos botões. */
-    nota: "4,9",
-    notaTexto: "no Google · mais de 180 famílias avaliaram",
-    /** Selo flutuante sobre o vídeo. */
-    seloVideo: "Câmeras ao vivo para os pais",
+    titulo: "Berçário e escola infantil",
     subtitulo:
-      "Um berçário e educação infantil de bairro, com rotina acolhedora, equipe próxima e câmeras para você acompanhar o dia do seu filho de onde estiver.",
-    ctaPrincipal: "Agendar uma visita",
-    ctaSecundario: "Assistir ao tour",
+      "Do 4º mês aos 5 anos, das 7h às 19h, na Rua das Jacarandás, no Jardim do Mar. Matrículas de 2027 abertas.",
+    cta: "Agendar uma visita",
+    /** Três fatos curtos no pé do cartão. */
+    fatos: ["1 educadora para 4 bebês", "Cozinha própria", "Câmeras para os pais"],
+    /** Fotos que se alternam devagar ao lado do cartão (a primeira é a capa e a prévia de compartilhamento). */
+    fotos: [
+      {
+        src: foto("hero-1.jpg", "1567746455504-cb3213f8f5b8"),
+        alt: "Sala ampla e iluminada com mesinhas de madeira, pufes coloridos e estantes baixas",
+      },
+      {
+        src: foto("hero-2.jpg", "1763310225230-6e15b125935a"),
+        alt: "Sala de brincar com mesinhas brancas, cadeiras pequenas e cozinha de brinquedo",
+      },
+      {
+        src: foto("hero-3.jpg", "1786667395574-8121327f52c8"),
+        alt: "Estante branca com cestos coloridos cheios de brinquedos, na altura das crianças",
+      },
+      {
+        src: foto("hero-4.jpg", "1601339434203-130259102db6"),
+        alt: "Mural de sala com árvore de papel, alfabeto colorido e bichinho de pelúcia sobre a estante",
+      },
+    ],
   },
-  video: {
-    /**
-     * Aceita:
-     *  - vídeo local:  "/escola/tour.mp4"   (coloque o arquivo em /public/escola)
-     *  - YouTube:      "https://www.youtube.com/watch?v=XXXXXXXXXXX" ou "https://youtu.be/XXXXXXXXXXX"
-     *  - qualquer .mp4 público
-     * Se existir /public/escola/tour.mp4, ele é usado; senão, vídeo de exemplo do Mixkit.
-     */
-    url: arquivoLocal("tour.mp4") ?? "https://assets.mixkit.co/videos/42165/42165-720.mp4",
-    titulo: "Tour pela Casa Jacarandá",
-    duracao: "2 min",
-    capa: foto("capa-video.jpg", "1567746455504-cb3213f8f5b8"),
-    capaAlt: "Sala ampla e iluminada com mesinhas de madeira, pufes coloridos e estantes de brinquedos",
-  },
-  /** Faixa com 4 números de confiança. Ícones: casa, coracao, relogio, estrela */
-  numeros: [
-    { icone: "casa", valor: "12 anos", rotulo: "cuidando de famílias do bairro" },
-    { icone: "coracao", valor: "1 para 4", rotulo: "educadora por bebê no berçário" },
-    { icone: "relogio", valor: "7h às 19h", rotulo: "período integral ou meio período" },
-    { icone: "estrela", valor: "4,9", rotulo: "nota no Google (180+ avaliações)" },
-  ] as const,
 
   // ---------------------------------------------------------------------------
-  // TURMAS
+  // TURMAS — `idadeEmMarco` = idade completa até 31/03 do ano letivo (data de corte)
   // ---------------------------------------------------------------------------
+  anoLetivo: 2027,
   turmas: [
     {
       nome: "Berçário",
-      faixa: "4 meses a 1 ano e 11 meses",
-      descricao:
-        "Ambiente tranquilo, colo sempre que precisar e rotina respeitando o sono e a alimentação de cada bebê.",
+      faixa: "4 meses a 1 ano",
+      idadeEmMarco: [0, 1],
+      descricao: "Colo sempre que precisar e uma rotina que respeita o sono e a mamada de cada bebê.",
+      nota: "1 educadora para 4 bebês",
       foto: foto("turma-bercario.jpg", "1515488042361-ee00e0ddd4e4"),
-      alt: "Bebê visto de cima brincando sobre tapete branco com bichinhos de pelúcia e livrinhos",
+      alt: "Bebê visto de cima brincando sobre tapete branco com bichinhos de pelúcia",
     },
     {
       nome: "Maternal I",
       faixa: "2 anos",
-      descricao:
-        "Descobertas pelo corpo e pelos sentidos: blocos, texturas, música e os primeiros combinados em grupo.",
+      idadeEmMarco: [2, 2],
+      descricao: "Descobertas pelo corpo e pelos sentidos: blocos, texturas, música e os primeiros combinados.",
+      nota: "1 educadora para 6 crianças",
       foto: foto("turma-maternal-1.jpg", "1484820540004-14229fe36ca4"),
-      alt: "Mãos de criança empilhando blocos coloridos de papelão com desenhos de animais",
+      alt: "Mãos de criança empilhando blocos coloridos com desenhos de animais",
     },
     {
       nome: "Maternal II",
       faixa: "3 anos",
-      descricao:
-        "Faz de conta, linguagem em expansão e mais autonomia para comer, se vestir e escolher brincadeiras.",
+      idadeEmMarco: [3, 3],
+      descricao: "Faz de conta, linguagem em expansão e mais autonomia para comer e se vestir.",
+      nota: "Desfralde com a família",
       foto: foto("turma-maternal-2.jpg", "1578349035260-9f3d4042f1f7"),
-      alt: "Carrinhos de brinquedo sobre um tapete de pista com crianças brincando ao fundo",
+      alt: "Carrinhos de brinquedo sobre um tapete de pista",
     },
     {
       nome: "Jardim I",
       faixa: "4 anos",
-      descricao:
-        "Projetos investigativos, artes, contação de histórias e primeiras experiências com letras e números.",
+      idadeEmMarco: [4, 4],
+      descricao: "Projetos investigativos, artes e as primeiras experiências com letras e números.",
+      nota: "Inglês brincando, 2x por semana",
       foto: foto("turma-jardim-1.jpg", "1605627079912-97c3810a11a4"),
-      alt: "Mãos de criança recortando e desenhando em papel colorido sobre mesa com materiais de arte",
+      alt: "Mãos de criança recortando papel colorido sobre mesa de atividades",
     },
     {
       nome: "Jardim II",
       faixa: "5 anos",
-      descricao:
-        "Preparação tranquila para o fundamental: leitura de mundo, escrita espontânea e projetos em grupo.",
+      idadeEmMarco: [5, 5],
+      descricao: "Preparação tranquila para o fundamental: escrita espontânea, leitura de mundo e projetos em grupo.",
+      nota: "Transição acompanhada para o 1º ano",
       foto: foto("turma-jardim-2.jpg", "1588075592405-d3d4f0846961"),
-      alt: "Crianças de costas sentadas no tapete ouvindo a professora contar uma história",
+      alt: "Crianças de costas, sentadas no tapete, ouvindo uma história",
     },
   ],
 
   // ---------------------------------------------------------------------------
-  // ESTRUTURA / AMBIENTES
+  // AMBIENTES (foto quadrada ou 4:5, assunto no centro)
   // ---------------------------------------------------------------------------
   ambientes: [
     {
       nome: "Berçário",
       descricao: "Berços individuais, poltrona de amamentação e luz natural.",
       foto: foto("ambiente-bercario.jpg", "1774578342155-8d7e44a18bfd"),
-      alt: "Berçário claro com berço branco, poltrona de amamentação e quadros delicados na parede",
+      alt: "Berçário claro com berço branco e poltrona de amamentação",
     },
     {
       nome: "Sala de soninho",
-      descricao: "Penumbra, ventilação e roupa de cama de cada criança.",
+      descricao: "Penumbra, ventilação e a roupa de cama de cada criança.",
       foto: foto("ambiente-soninho.jpg", "1542901689-8917f44e3541"),
-      alt: "Berço de madeira com travesseiro de ovelhinha e móbile, em ambiente tranquilo",
+      alt: "Berço de madeira com travesseiro de ovelhinha e móbile",
     },
     {
       nome: "Parque e solário",
-      descricao: "Área externa com escorregador, grama e sol da manhã.",
+      descricao: "Escorregador, grama e sol da manhã.",
       foto: foto("ambiente-parque.jpg", "1775327510739-0ccba35a0cc9"),
-      alt: "Parquinho colorido com escorregador amarelo e estrutura azul sob céu aberto",
+      alt: "Parquinho com escorregador amarelo e estrutura azul sob céu aberto",
     },
     {
       nome: "Salas de atividades",
       descricao: "Mobiliário na altura das crianças e cantinhos temáticos.",
       foto: foto("ambiente-salas.jpg", "1567746512136-f005499a7575"),
-      alt: "Sala de atividades com bandeirolas verdes, banco circular estofado e estantes baixas",
+      alt: "Sala com bandeirolas verdes, banco circular estofado e estantes baixas",
     },
     {
       nome: "Refeitório",
-      descricao: "Mesinhas e cadeiras do tamanho certo para comer com autonomia.",
+      descricao: "Mesinhas do tamanho certo para comer com autonomia.",
       foto: foto("ambiente-refeitorio.jpg", "1763310225537-f7161d5c93e9"),
-      alt: "Refeitório infantil com mesinhas brancas e cadeiras pequenas de madeira",
+      alt: "Refeitório infantil com mesinhas brancas e cadeiras pequenas",
     },
     {
       nome: "Sala sensorial",
-      descricao: "Texturas, luzes, piscina de bolinhas e brincadeiras com tinta.",
+      descricao: "Texturas, luzes, bolinhas e brincadeiras com tinta.",
       foto: foto("ambiente-sensorial.jpg", "1764418717252-07342e14d58a"),
-      alt: "Piscina de bolinhas em tons de verde, rosa, amarelo e azul",
+      alt: "Piscina de bolinhas verdes, rosas, amarelas e azuis",
     },
     {
       nome: "Biblioteca",
       descricao: "Livros ao alcance das mãos para a roda de histórias.",
       foto: foto("ambiente-biblioteca.jpg", "1716324339623-384495f47373"),
-      alt: "Estante de madeira com livros infantis coloridos organizados por prateleira",
+      alt: "Estante de madeira com livros infantis coloridos",
     },
     {
       nome: "Entrada e acolhida",
-      descricao: "Recepção segura com controle de acesso e escaninho de cada criança.",
+      descricao: "Controle de acesso e o escaninho de cada criança.",
       foto: foto("ambiente-entrada.jpg", "1786667395451-3f0cbf620a90"),
-      alt: "Espaço de acolhida com paredes amarelas e escaninhos de madeira para as mochilas",
+      alt: "Acolhida com paredes amarelas e escaninhos de madeira",
     },
   ],
 
   // ---------------------------------------------------------------------------
-  // ROTINA DO DIA
+  // ROTINA — três períodos que crescem na tela
   // ---------------------------------------------------------------------------
-  /** Ícones: chegada, cafe, arte, parque, refeicao, sono, lanche, musica, jantar, saida */
   rotina: [
-    { icone: "chegada", hora: "7h", titulo: "Acolhida", descricao: "Chegada tranquila, brincadeiras livres e conversa com a família." },
-    { icone: "cafe", hora: "8h", titulo: "Café da manhã", descricao: "Frutas, pães e leite, com cardápio da nutricionista." },
-    { icone: "arte", hora: "9h", titulo: "Atividades e projetos", descricao: "Arte, música, movimento e exploração por turma." },
-    { icone: "parque", hora: "10h", titulo: "Parque e solário", descricao: "Brincar ao ar livre e banho de sol." },
-    { icone: "refeicao", hora: "11h", titulo: "Almoço", descricao: "Comida caseira feita na escola, todos os dias." },
-    { icone: "sono", hora: "12h", titulo: "Soninho", descricao: "Descanso respeitando o ritmo de cada criança." },
-    { icone: "lanche", hora: "14h30", titulo: "Lanche e higiene", descricao: "Lanche da tarde, troca e cuidado com o corpo." },
-    { icone: "musica", hora: "15h30", titulo: "Oficinas", descricao: "Culinária, histórias, brincadeiras cantadas e sensorial." },
-    { icone: "jantar", hora: "17h", titulo: "Jantar", descricao: "Refeição leve para chegar em casa tranquilo." },
-    { icone: "saida", hora: "17h30", titulo: "Saída até 19h", descricao: "Brincadeiras calmas e entrega com recado do dia." },
-  ] as const,
+    {
+      periodo: "Manhã",
+      faixa: "7h às 11h",
+      foto: foto("rotina-manha.jpg", "1558576997-a29a7b11a56c"),
+      alt: "Criança sentada no chão tocando um xilofone colorido",
+      itens: [
+        { hora: "7h", texto: "Acolhida e brincadeira livre" },
+        { hora: "8h", texto: "Café da manhã" },
+        { hora: "9h", texto: "Projetos, arte e música" },
+        { hora: "10h", texto: "Parque e banho de sol" },
+      ],
+    },
+    {
+      periodo: "Meio do dia",
+      faixa: "11h às 14h30",
+      foto: foto("rotina-almoco.jpg", "1782702216473-c5231106c617"),
+      alt: "Melancia, morangos e queijo servidos sobre mesa azul",
+      itens: [
+        { hora: "11h", texto: "Almoço feito na escola" },
+        { hora: "12h", texto: "Soninho, no ritmo de cada um" },
+        { hora: "14h", texto: "Higiene e troca" },
+      ],
+    },
+    {
+      periodo: "Tarde",
+      faixa: "14h30 às 19h",
+      foto: foto("rotina-tarde.jpg", "1772209177472-fc37fdfd4484"),
+      alt: "Parquinho colorido com dois escorregadores entre árvores",
+      itens: [
+        { hora: "14h30", texto: "Lanche da tarde" },
+        { hora: "15h30", texto: "Oficinas: culinária, histórias e sensorial" },
+        { hora: "17h", texto: "Jantar leve" },
+        { hora: "17h30", texto: "Saída com o recado do dia, até 19h" },
+      ],
+    },
+  ],
+
+  /** Frase da faixa de pétalas que divide a página. */
+  faixaNome: "O nome vem das árvores da nossa rua, que florescem toda primavera.",
 
   // ---------------------------------------------------------------------------
-  // PROPOSTA PEDAGÓGICA
+  // PROPOSTA PEDAGÓGICA — pontos em três colunas
   // ---------------------------------------------------------------------------
   proposta: {
-    titulo: "Brincar é coisa séria por aqui",
+    titulo: "Brincar é coisa séria",
     texto:
-      "Seguimos a BNCC com um olhar sensível para cada criança. As experiências partem do interesse da turma, com tempo para explorar, errar e descobrir. A família participa de perto, com devolutivas frequentes e portas abertas.",
+      "Seguimos a BNCC com um olhar para cada criança: as experiências partem do interesse da turma, com tempo para explorar, errar e descobrir.",
     foto: foto("proposta.jpg", "1596464716127-f2a82984de30"),
-    fotoAlt: "Mesa de atividades com canetinhas coloridas, pedrinhas pintadas e mãos de criança desenhando",
-    camposBncc: [
-      "O eu, o outro e o nós",
-      "Corpo, gestos e movimentos",
-      "Traços, sons, cores e formas",
-      "Escuta, fala, pensamento e imaginação",
-      "Espaços, tempos, quantidades, relações e transformações",
+    fotoAlt: "Mãos de criança desenhando numa mesa com canetinhas e pedrinhas pintadas",
+    pontos: [
+      { titulo: "Câmeras para os pais", texto: "Acesso individual pelo celular, em horários definidos." },
+      { titulo: "Cozinha própria", texto: "Cardápio da nutricionista e introdução alimentar junto da família." },
+      { titulo: "Adaptação gradual", texto: "A família fica nos primeiros dias, no tempo de cada criança." },
+      { titulo: "Agenda digital", texto: "Sono, refeições, trocas e fotos do dia direto no app." },
+      { titulo: "O eu, o outro e o nós", texto: "Conviver, esperar a vez e cuidar do colega." },
+      { titulo: "Corpo e movimento", texto: "Correr, subir, dançar e descobrir o que o corpo consegue." },
+      { titulo: "Traços, sons e cores", texto: "Tinta, argila, música e instrumentos todos os dias." },
+      { titulo: "Escuta e fala", texto: "Roda de histórias, conversa e as primeiras letras." },
+      { titulo: "Espaços e quantidades", texto: "Contar, comparar, medir e plantar na horta." },
     ],
   },
-  /** Ícones disponíveis: camera, nutricao, adaptacao, agenda, seguranca, natureza */
-  diferenciais: [
-    {
-      icone: "camera",
-      titulo: "Câmeras com acesso dos pais",
-      descricao: "Acompanhe as salas pelo celular, com acesso seguro e individual.",
-    },
-    {
-      icone: "nutricao",
-      titulo: "Nutricionista e cozinha própria",
-      descricao: "Cardápio sazonal, introdução alimentar e atenção a restrições.",
-    },
-    {
-      icone: "adaptacao",
-      titulo: "Adaptação gradual",
-      descricao: "Família presente nos primeiros dias, no tempo de cada criança.",
-    },
-    {
-      icone: "agenda",
-      titulo: "Agenda digital",
-      descricao: "Sono, alimentação, trocas e fotos do dia direto no app.",
-    },
-  ] as const,
 
   // ---------------------------------------------------------------------------
   // QUEM CUIDA (diretora / fundadora)
   // ---------------------------------------------------------------------------
   equipe: {
-    titulo: "Uma escola com rosto, nome e porta aberta",
-    texto:
-      "Abri a Casa Jacarandá depois de 15 anos em sala de aula, com uma ideia simples: uma escola pequena o bastante para conhecer cada família pelo nome. Até hoje recebo pessoalmente cada visita, e é isso que eu gostaria de fazer com você.",
+    titulo: "Uma escola com rosto e nome",
     nome: "Patrícia Andrade",
-    cargo: "Diretora e fundadora · Pedagoga, pós em Educação Infantil",
+    cargo: "Diretora e fundadora",
+    carta:
+      "Abri a Casa Jacarandá depois de 15 anos em sala de aula, para ter uma escola pequena o bastante para conhecer cada família pelo nome. Ainda recebo pessoalmente cada visita.",
+    equipeTitulo: "A equipe",
+    equipeTexto:
+      "Todas as educadoras são formadas em Pedagogia, ficam em média 8 anos com a gente e refazem o curso de primeiros socorros todo ano.",
     foto: foto("diretora.jpg", "1580489944761-15a19d654956"),
-    alt: "Retrato da diretora da escola sorrindo em um ambiente iluminado",
-    destaques: [
-      { valor: "100%", rotulo: "das educadoras formadas em Pedagogia" },
-      { valor: "8 anos", rotulo: "tempo médio da equipe na escola" },
-      { valor: "Todo ano", rotulo: "reciclagem em primeiros socorros" },
-    ],
-  },
-
-  /** Faixa de chamada final, antes do rodapé. */
-  ctaFinal: {
-    titulo: "As vagas de 2027 estão sendo preenchidas",
-    texto: "Agende uma visita sem compromisso e conheça a escola com calma.",
+    alt: "Retrato da diretora sorrindo, de camiseta branca, em fundo claro",
   },
 
   // ---------------------------------------------------------------------------
@@ -343,21 +343,15 @@ export const escola = {
     },
     {
       texto:
-        "O que mais pesou para nós foi a alimentação. Comida de verdade, feita na escola, e a nutricionista ajudou muito na introdução alimentar.",
+        "Pesou muito a alimentação. Comida de verdade, feita ali, e a nutricionista ajudou na introdução alimentar.",
       nome: "Rafael e Camila",
       relacao: "pais do Theo, Maternal I",
     },
     {
       texto:
-        "Consigo olhar a câmera no intervalo do trabalho e a agenda digital me conta tudo. Isso me dá uma tranquilidade enorme.",
+        "Olho a câmera no intervalo do trabalho e a agenda me conta o resto. Escola pequena, todo mundo sabe o nome dela.",
       nome: "Juliana P.",
       relacao: "mãe da Alice, Maternal II",
-    },
-    {
-      texto:
-        "Escola pequena, todo mundo sabe o nome do meu filho. Ele aprendeu muito brincando e chegou no Jardim II super preparado.",
-      nome: "André L.",
-      relacao: "pai do Miguel, Jardim II",
     },
   ],
 
@@ -365,54 +359,59 @@ export const escola = {
   // FORMULÁRIO DE VISITA
   // ---------------------------------------------------------------------------
   visita: {
-    titulo: "Venha tomar um café e conhecer a escola",
-    texto:
-      "A visita dura cerca de 40 minutos. Você conhece os ambientes, a equipe e tira todas as dúvidas com calma. Preencha e a gente confirma o horário pelo WhatsApp.",
+    titulo: "Agende uma visita",
+    texto: "Uns 40 minutos, com café, para ver a escola funcionando e conversar com calma. Confirmamos pelo WhatsApp.",
     idades: [
+      "Ainda vai nascer",
       "4 a 11 meses",
       "1 ano",
       "2 anos",
       "3 anos",
       "4 anos",
       "5 anos",
-      "Ainda vai nascer",
     ],
     periodos: ["Manhã", "Tarde", "Tanto faz"],
   },
 
   // ---------------------------------------------------------------------------
-  // FAQ
+  // FAQ — `topico` aparece na aba da ficha (1 ou 2 palavras)
   // ---------------------------------------------------------------------------
   faq: [
     {
+      topico: "Idade",
       pergunta: "A partir de qual idade vocês recebem os bebês?",
       resposta:
-        "Recebemos bebês a partir de 4 meses no Berçário e acompanhamos as crianças até os 5 anos, no Jardim II.",
+        "A partir de 4 meses no Berçário, e acompanhamos as crianças até os 5 anos, no Jardim II.",
     },
     {
+      topico: "Horário",
       pergunta: "Vocês têm período integral?",
       resposta:
-        "Sim. Funcionamos das 7h às 19h, com opções de período integral (até 12h), meio período manhã ou tarde e horários estendidos.",
+        "Sim. Abrimos das 7h às 19h, com integral, meio período (manhã ou tarde) e horário estendido.",
     },
     {
+      topico: "Comida",
       pergunta: "Como funciona a alimentação?",
       resposta:
-        "Todas as refeições são preparadas na nossa cozinha, com cardápio elaborado por nutricionista. Acompanhamos a introdução alimentar junto com a família e respeitamos alergias e restrições com laudo.",
+        "Tudo é preparado na nossa cozinha, com cardápio da nutricionista. Acompanhamos a introdução alimentar com a família e respeitamos alergias e restrições com laudo.",
     },
     {
+      topico: "Câmeras",
       pergunta: "Posso acompanhar meu filho pelas câmeras?",
       resposta:
-        "Sim. As salas e áreas comuns têm câmeras, e cada família recebe um acesso individual pelo celular, em horários definidos.",
+        "Sim. Salas e áreas comuns têm câmeras, e cada família recebe um acesso individual pelo celular, em horários definidos.",
     },
     {
+      topico: "Adaptação",
       pergunta: "Como é a adaptação?",
       resposta:
-        "Gradual e personalizada. Nos primeiros dias a família fica junto, e o tempo de permanência aumenta conforme a criança se sente segura. Em geral leva de 1 a 3 semanas.",
+        "Gradual: nos primeiros dias a família fica junto, e o tempo na escola cresce conforme a criança se sente segura. Costuma levar de 1 a 3 semanas.",
     },
     {
+      topico: "Valores",
       pergunta: "Quais são os valores?",
       resposta:
-        "Os valores variam conforme a turma e o período escolhido. Na visita apresentamos a tabela completa, o que está incluso (alimentação, material, agenda digital) e as condições para irmãos.",
+        "Dependem da turma e do período. Na visita mostramos a tabela, o que está incluso (alimentação, material, agenda digital) e as condições para irmãos.",
     },
   ],
 };

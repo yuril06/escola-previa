@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 /*
- * As cores reais vêm de src/config/escola.ts e são injetadas no <head> como
- * --cor-* (ver src/app/layout.tsx). Os valores abaixo são só fallback.
+ * Tokens do DESIGN.md. As cores reais vêm de src/config/escola.ts e são injetadas
+ * no <head> como --cor-* (ver src/app/layout.tsx). Os valores abaixo são só fallback.
  */
 :root {
   --cor-primaria: #2e7552;
@@ -11,56 +11,78 @@
   --cor-destaque: #d9506c;
   --cor-fundo: #fbf8f2;
   --cor-texto: #22302a;
+
+  /* A pétala: dois cantos opostos arredondados. Um formato só, em quatro escalas. */
+  --petala-gigante: 0 50% 0 50%;
+  --petala-foto: 0 min(9rem, 28%) 0 min(9rem, 28%);
+  --petala-media: 0 1.25rem 0 1.25rem;
+  --petala-mini: 0 50% 0 50%;
+
+  --margem: 16px;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --margem: 24px;
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --margem: 32px;
+  }
 }
 
 @theme inline {
   --color-primaria: var(--cor-primaria);
-  --color-primaria-escura: color-mix(in oklab, var(--cor-primaria) 78%, black);
-  --color-primaria-clara: color-mix(in oklab, var(--cor-primaria) 12%, white);
+  --color-primaria-escura: color-mix(in oklab, var(--cor-primaria) 72%, black);
+  --color-primaria-clara: color-mix(in oklab, var(--cor-primaria) 14%, white);
+  --color-primaria-media: color-mix(in oklab, var(--cor-primaria) 82%, white);
   --color-secundaria: var(--cor-secundaria);
-  --color-secundaria-clara: color-mix(in oklab, var(--cor-secundaria) 20%, white);
+  --color-secundaria-clara: color-mix(in oklab, var(--cor-secundaria) 26%, white);
   --color-suave: var(--cor-suave);
-  --color-suave-clara: color-mix(in oklab, var(--cor-suave) 25%, white);
+  --color-suave-clara: color-mix(in oklab, var(--cor-suave) 32%, white);
   --color-destaque: var(--cor-destaque);
-  --color-destaque-clara: color-mix(in oklab, var(--cor-destaque) 12%, white);
-  --color-erro: color-mix(in oklab, var(--cor-destaque) 72%, black);
+  --color-destaque-clara: color-mix(in oklab, var(--cor-destaque) 16%, white);
   --color-fundo: var(--cor-fundo);
-  --color-creme: color-mix(in oklab, var(--cor-fundo) 82%, var(--cor-secundaria));
+  --color-creme: color-mix(in oklab, var(--cor-fundo) 92%, var(--cor-texto));
   --color-texto: var(--cor-texto);
-  --color-texto-suave: color-mix(in oklab, var(--cor-texto) 72%, white);
-  --color-linha: color-mix(in oklab, var(--cor-texto) 10%, transparent);
+  --color-texto-suave: color-mix(in oklab, var(--cor-texto) 78%, white);
+  --color-erro: color-mix(in oklab, var(--cor-destaque) 60%, black);
 
   --font-sans: var(--fonte-corpo), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--fonte-display), ui-sans-serif, system-ui, sans-serif;
-
-  --radius-4xl: 2rem;
-  --radius-5xl: 2.5rem;
-
-  --shadow-suave: 0 1px 2px rgb(34 48 42 / 0.04), 0 8px 24px -8px rgb(34 48 42 / 0.12);
-  --shadow-elevada: 0 2px 4px rgb(34 48 42 / 0.04), 0 24px 48px -16px rgb(34 48 42 / 0.22);
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5.5rem;
+  scroll-padding-top: 7.5rem;
   -webkit-text-size-adjust: 100%;
 }
 
 body {
   background: var(--cor-fundo);
   color: var(--cor-texto);
+  font-size: 1.0625rem;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+}
+
+a,
+button,
+select,
+input,
+label {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: color-mix(in oklab, var(--cor-primaria) 18%, transparent);
 }
 
 ::selection {
-  background: color-mix(in oklab, var(--cor-secundaria) 45%, white);
+  background: color-mix(in oklab, var(--cor-secundaria) 50%, white);
 }
 
 :focus-visible {
   outline: 3px solid var(--cor-primaria);
   outline-offset: 3px;
-  border-radius: 6px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -71,33 +93,78 @@ body {
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 }
 
 @layer components {
-  .container-site {
-    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  /* Moldura da página: margens externas iguais em toda largura */
+  .moldura {
+    @apply mx-auto w-full max-w-[1280px] px-[var(--margem)];
   }
-  .titulo-secao {
-    @apply font-display text-[2rem] leading-[1.08] font-semibold tracking-[-0.02em] text-balance sm:text-5xl;
+
+  /* Os cinco passos de tipo */
+  .t-display {
+    @apply font-display font-semibold tracking-[-0.035em] text-balance;
+    font-size: clamp(2.5rem, 4.4vw + 0.5rem, 4.75rem);
+    line-height: 1;
   }
-  .eyebrow {
-    @apply inline-flex items-center gap-2 text-xs font-semibold tracking-[0.14em] text-primaria uppercase;
+  .t-titulo {
+    @apply font-display font-semibold tracking-[-0.03em] text-balance;
+    font-size: clamp(2rem, 3.2vw + 0.5rem, 3.5rem);
+    line-height: 1.04;
   }
-  .btn-primario,
-  .btn-secundario {
-    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-[0.95rem] font-semibold transition duration-200 active:scale-[0.98];
+  .t-sub {
+    @apply font-display font-semibold tracking-[-0.015em] text-pretty;
+    font-size: clamp(1.25rem, 0.6vw + 1rem, 1.5rem);
+    line-height: 1.2;
   }
-  .btn-primario {
-    @apply bg-primaria text-white shadow-[0_8px_20px_-8px_var(--cor-primaria)] hover:bg-primaria-escura;
+  .t-corpo {
+    font-size: 1.0625rem;
+    line-height: 1.55;
   }
-  .btn-secundario {
-    @apply border border-linha bg-white text-texto hover:border-primaria/40 hover:bg-primaria-clara;
+  .t-nota {
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+
+  /* A pétala em suas escalas */
+  .petala {
+    border-radius: var(--petala-foto);
+  }
+  .petala-inv {
+    border-radius: min(9rem, 28%) 0 min(9rem, 28%) 0;
+  }
+  .marcador {
+    display: inline-block;
+    width: 0.7em;
+    height: 0.7em;
+    flex-shrink: 0;
+    border-radius: var(--petala-mini);
+  }
+
+  /* Botão: chapado, cantos de pétala. Um formato só. */
+  .botao {
+    @apply inline-flex min-h-13 cursor-pointer items-center justify-center gap-2 bg-primaria px-7 font-semibold text-white transition-[background-color,transform] duration-200 select-none hover:bg-primaria-escura active:scale-[0.97];
+    border-radius: var(--petala-media);
+    font-size: 1.0625rem;
+  }
+  .botao-claro {
+    @apply bg-white text-primaria hover:bg-secundaria-clara;
+  }
+
+  /* Link de texto com sublinhado que cresce */
+  .link {
+    @apply font-semibold text-primaria underline decoration-2 underline-offset-4 transition-colors hover:text-primaria-escura;
+    text-decoration-color: color-mix(in oklab, currentColor 35%, transparent);
+  }
+  .link:hover {
+    text-decoration-color: currentColor;
   }
 }
 
-/* Barra de rolagem escondida nos carrosséis com swipe */
+/* Barra de rolagem escondida nos trilhos com swipe */
 .sem-scrollbar {
   scrollbar-width: none;
 }
@@ -105,36 +172,31 @@ body {
   display: none;
 }
 
+/* Entrada do hero (o resto entra com Framer Motion, por partes) */
 @keyframes entrada {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(18px);
   }
   to {
     opacity: 1;
     transform: none;
   }
 }
-.animar-entrada {
-  animation: entrada 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+.entra {
+  animation: entrada 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Sublinhado desenhado à mão no título do hero */
-@keyframes desenhar {
-  from {
-    stroke-dashoffset: 320;
+/* Pétalas da faixa: um balanço lento, como caindo da árvore */
+@keyframes balanco {
+  0%,
+  100% {
+    transform: rotate(var(--giro, 0deg)) translateY(0);
   }
-  to {
-    stroke-dashoffset: 0;
+  50% {
+    transform: rotate(calc(var(--giro, 0deg) + 8deg)) translateY(-6px);
   }
 }
-.rabisco {
-  stroke-dasharray: 320;
-  animation: desenhar 0.9s 0.5s cubic-bezier(0.65, 0, 0.35, 1) both;
-}
-
-/* Textura de pontinhos para fundos de destaque */
-.pontilhado {
-  background-image: radial-gradient(color-mix(in oklab, currentColor 70%, transparent) 1.6px, transparent 1.7px);
-  background-size: 18px 18px;
+.balanca {
+  animation: balanco 6s ease-in-out infinite;
 }

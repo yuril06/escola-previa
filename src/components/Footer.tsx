@@ -1,92 +1,124 @@
-import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { escola } from "@/config/escola";
-import { enderecoCompleto, instagramLink, mensagemPadraoWhatsapp, whatsappLink } from "@/lib/utils";
-import { Logo } from "./Logo";
-import { IconeInstagram, IconeWhatsApp } from "./ui/icones";
+import { cn, enderecoCompleto, instagramLink, mensagemPadraoWhatsapp, whatsappLink } from "@/lib/utils";
 
+const cores = ["bg-destaque", "bg-secundaria", "bg-suave", "bg-primaria-media", "bg-secundaria-clara"];
+const alturas = ["h-[78%]", "h-full", "h-[64%]", "h-[88%]", "h-[70%]", "h-[96%]", "h-[60%]", "h-[84%]", "h-[72%]", "h-[92%]"];
+
+const colunas = [
+  {
+    titulo: "A escola",
+    links: [
+      { href: "#turmas", label: "Turmas" },
+      { href: "#ambientes", label: "Ambientes" },
+      { href: "#rotina", label: "Rotina" },
+    ],
+  },
+  {
+    titulo: "O jeito",
+    links: [
+      { href: "#proposta", label: "Proposta" },
+      { href: "#quem-cuida", label: "Quem cuida" },
+      { href: "#familias", label: "Famílias" },
+    ],
+  },
+  {
+    titulo: "Para decidir",
+    links: [
+      { href: "#visita", label: "Agendar visita" },
+      { href: "#duvidas", label: "Dúvidas" },
+      { href: escola.endereco.mapsUrl, label: "Como chegar", externo: true },
+    ],
+  },
+  {
+    titulo: "Conversar",
+    links: [
+      { href: whatsappLink(mensagemPadraoWhatsapp), label: "WhatsApp", externo: true },
+      { href: instagramLink(), label: `@${escola.contato.instagram}`, externo: true },
+      { href: `mailto:${escola.contato.email}`, label: "E-mail" },
+    ],
+  },
+];
+
+/** Rodapé: a palavra do nome construída em blocos-pétala, depois links e contatos. */
 export function Footer() {
-  const ano = new Date().getFullYear();
+  const letras = [...escola.marcaRodape];
   return (
-    <footer className="bg-texto pt-14 pb-28 text-white/75 sm:pb-14">
-      <div className="container-site">
-        <div className="grid gap-10 md:grid-cols-[1.2fr_1.1fr_1fr]">
-          <div>
-            <Logo claro />
-            <p className="mt-5 max-w-sm text-[0.95rem] leading-relaxed">{escola.descricao}</p>
-            <div className="mt-6 flex gap-3">
-              <a
-                href={instagramLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`Instagram @${escola.contato.instagram}`}
-                className="grid size-11 place-items-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
-              >
-                <IconeInstagram className="size-5" />
-              </a>
-              <a
-                href={whatsappLink(mensagemPadraoWhatsapp)}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="WhatsApp"
-                className="grid size-11 place-items-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
-              >
-                <IconeWhatsApp className="size-5" />
-              </a>
-            </div>
-          </div>
+    <footer className="bg-texto pt-14 pb-28 text-white">
+      <div className="moldura">
+        {/* A marca, construída em blocos */}
+        <div aria-hidden translate="no" className="flex h-[22svh] max-h-56 min-h-32 items-end gap-1 lg:h-[34svh] lg:max-h-80">
+          {letras.map((l, i) => (
+            <span
+              key={i}
+              className={cn(
+                "flex flex-1 items-end justify-center pb-[0.12em] font-display leading-none font-semibold text-texto",
+                "text-[min(9.5vw,7.5rem)]",
+                cores[i % cores.length],
+                alturas[i % alturas.length],
+              )}
+              style={{ borderRadius: i % 2 ? "0 1.5rem 0 1.5rem" : "1.5rem 0 1.5rem 0" }}
+            >
+              {l}
+            </span>
+          ))}
+        </div>
+        <p className="sr-only">{escola.nomeCompleto}</p>
 
-          <div>
-            <h2 className="font-display text-lg font-semibold text-white">Contato</h2>
-            <ul className="mt-4 grid gap-3 text-[0.95rem]">
-              <li className="flex gap-3">
-                <Phone className="mt-0.5 size-4 shrink-0" aria-hidden />
-                <a href={`tel:${escola.contato.telefone.replace(/\D/g, "")}`} className="hover:text-white">
-                  {escola.contato.telefone}
-                </a>
-              </li>
-              <li className="flex gap-3">
-                <IconeWhatsApp className="mt-0.5 size-4 shrink-0" />
-                <a href={whatsappLink(mensagemPadraoWhatsapp)} target="_blank" rel="noopener noreferrer" className="hover:text-white">
-                  {escola.contato.whatsappExibicao}
-                </a>
-              </li>
-              <li className="flex gap-3">
-                <Mail className="mt-0.5 size-4 shrink-0" aria-hidden />
-                <a href={`mailto:${escola.contato.email}`} className="hover:text-white">
-                  {escola.contato.email}
-                </a>
-              </li>
-              <li className="flex gap-3">
-                <IconeInstagram className="mt-0.5 size-4 shrink-0" />
-                <a href={instagramLink()} target="_blank" rel="noopener noreferrer" className="hover:text-white">
-                  @{escola.contato.instagram}
-                </a>
-              </li>
-            </ul>
-          </div>
+        <div className="mt-14 grid gap-10 lg:grid-cols-12">
+          <nav aria-label="Rodapé" className="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:col-span-8">
+            {colunas.map((c) => (
+              <div key={c.titulo}>
+                <h2 className="t-nota font-semibold text-white/70">{c.titulo}</h2>
+                <ul className="mt-3 grid gap-2">
+                  {c.links.map((l) => (
+                    <li key={l.label}>
+                      <a
+                        href={l.href}
+                        {...("externo" in l && l.externo ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                        className="t-nota transition-colors hover:text-secundaria"
+                      >
+                        {l.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </nav>
 
-          <div>
-            <h2 className="font-display text-lg font-semibold text-white">Visite a escola</h2>
-            <ul className="mt-4 grid gap-3 text-[0.95rem]">
-              <li className="flex gap-3">
-                <MapPin className="mt-0.5 size-4 shrink-0" aria-hidden />
-                <a href={escola.endereco.mapsUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white">
-                  {enderecoCompleto()}
-                </a>
-              </li>
-              <li className="flex gap-3">
-                <Clock className="mt-0.5 size-4 shrink-0" aria-hidden />
-                {escola.horario.exibicao}
-              </li>
-            </ul>
-          </div>
+          <address className="grid content-start gap-2 t-nota not-italic lg:col-span-4">
+            <p>{enderecoCompleto()}</p>
+            <p>{escola.horario.exibicao}</p>
+            <p>
+              <a href={`tel:${escola.contato.telefone.replace(/\D/g, "")}`} className="hover:text-secundaria">
+                {escola.contato.telefone}
+              </a>
+              {" · "}
+              <a href={whatsappLink(mensagemPadraoWhatsapp)} target="_blank" rel="noopener noreferrer" className="hover:text-secundaria">
+                WhatsApp {escola.contato.whatsappExibicao}
+              </a>
+            </p>
+            <p>
+              <a href={`mailto:${escola.contato.email}`} className="hover:text-secundaria">
+                {escola.contato.email}
+              </a>
+            </p>
+          </address>
         </div>
 
-        <div className="mt-12 flex flex-col gap-2 border-t border-white/10 pt-6 text-sm text-white/60 sm:flex-row sm:justify-between">
-          <p>
-            © {ano} {escola.nomeCompleto}
-          </p>
-          {escola.isDemo && <p>Site demonstrativo · fotos Unsplash e vídeo Mixkit</p>}
+        <div className="t-nota mt-14 flex flex-col gap-4 text-white/75 sm:flex-row sm:items-end sm:justify-between">
+          <div className="grid gap-1">
+            <p>
+              © {new Date().getFullYear()} {escola.nomeCompleto}
+            </p>
+            <p>
+              Prancha do jacarandá: Botanical Magazine, 1822, domínio público, via Wikimedia Commons.
+              {escola.isDemo && " Fotos de exemplo: Unsplash."}
+            </p>
+          </div>
+          <a href="#visita" className="botao min-h-11 w-fit shrink-0 px-5 t-nota">
+            Agendar visita
+          </a>
         </div>
       </div>
     </footer>

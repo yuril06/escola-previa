@@ -1,45 +1,6 @@
 import type { SVGProps } from "react";
-import {
-  Apple,
-  CalendarCheck,
-  Camera,
-  Clock,
-  Coffee,
-  Heart,
-  HeartHandshake,
-  House,
-  Moon,
-  Music,
-  Palette,
-  Salad,
-  ShieldCheck,
-  Soup,
-  Sprout,
-  Star,
-  Sunrise,
-  Sunset,
-  TreePine,
-  Utensils,
-} from "lucide-react";
 
-/** Ícones da faixa de números (campo `icone` em `numeros`). */
-export const iconesNumeros = { casa: House, coracao: Heart, relogio: Clock, estrela: Star } as const;
-
-/** Ícones da rotina (campo `icone` em `rotina`). */
-export const iconesRotina = {
-  chegada: Sunrise,
-  cafe: Coffee,
-  arte: Palette,
-  parque: TreePine,
-  refeicao: Utensils,
-  sono: Moon,
-  lanche: Apple,
-  musica: Music,
-  jantar: Soup,
-  saida: Sunset,
-} as const;
-
-/** Ícones de marca (o lucide não inclui logos de marcas). */
+/** Ícone do WhatsApp (o lucide não inclui logos de marcas). */
 export function IconeWhatsApp(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
@@ -47,32 +8,3 @@ export function IconeWhatsApp(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
-
-export function IconeInstagram(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" />
-    </svg>
-  );
-}
-
-/** Mapeia o campo `icone` dos diferenciais no config para um ícone do lucide. */
-export const iconesDiferenciais = {
-  camera: Camera,
-  nutricao: Salad,
-  adaptacao: HeartHandshake,
-  agenda: CalendarCheck,
-  seguranca: ShieldCheck,
-  natureza: Sprout,
-} as const;
