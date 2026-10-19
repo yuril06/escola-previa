@@ -8,14 +8,18 @@ import { cn } from "@/lib/utils";
  */
 export function Logo({ className, claro = false }: { className?: string; claro?: boolean }) {
   if (escola.logo.imagem) {
+    // No rodapé escuro: usa logo-branco se existir; senão, deixa o logo normal todo branco.
+    const src = claro ? (escola.logo.imagemClara ?? escola.logo.imagem) : escola.logo.imagem;
+    const embranquecer = claro && !escola.logo.imagemClara;
     return (
       <Image
-        src={escola.logo.imagem}
+        src={src}
         alt={escola.nome}
         width={escola.logo.largura}
         height={escola.logo.altura}
-        className={cn("h-10 w-auto", className)}
-        priority
+        unoptimized={src.endsWith(".svg")}
+        className={cn("h-11 w-auto max-w-[200px] object-contain sm:h-12", embranquecer && "brightness-0 invert", className)}
+        priority={!claro}
       />
     );
   }

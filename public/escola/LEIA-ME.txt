@@ -1,8 +1,42 @@
-Coloque aqui os arquivos da escola (logo, fotos e vídeo) e aponte os caminhos
-em src/config/escola.ts. Exemplos:
+ARQUIVOS DA ESCOLA
+==================
 
-  /public/escola/logo.svg       ->  logo.imagem: "/escola/logo.svg"
-  /public/escola/bercario.jpg   ->  foto: "/escola/bercario.jpg"
-  /public/escola/tour.mp4       ->  video.url: "/escola/tour.mp4"
+Solte os arquivos nesta pasta com EXATAMENTE estes nomes. Cada arquivo que
+existir substitui automaticamente a foto de exemplo; os que faltarem continuam
+com a foto do Unsplash. Fotos podem ser .jpg, .png ou .webp.
 
-Depois rode:  npm run blur   (gera os placeholders desfocados das fotos novas)
+Depois de adicionar: rode  npm run blur  e reinicie o  npm run dev.
+
+LOGO
+  logo.svg (ou .png)          logo horizontal, fundo transparente, ~ 600x180
+  logo-branco.svg (opcional)  versão clara para o rodapé escuro
+  (favicon: troque src/app/icon.svg, ou coloque um src/app/icon.png 512x512)
+
+VÍDEO
+  tour.mp4                    1080p, 1 a 2 min, até ~20 MB
+  capa-video.jpg              1600x1200 (4:3) — capa do player e prévia no WhatsApp
+
+TURMAS (horizontal, 1600x1000)
+  turma-bercario.jpg
+  turma-maternal-1.jpg
+  turma-maternal-2.jpg
+  turma-jardim-1.jpg
+  turma-jardim-2.jpg
+
+AMBIENTES (quadrada, 1600x1600, assunto no centro)
+  ambiente-bercario.jpg
+  ambiente-soninho.jpg
+  ambiente-parque.jpg
+  ambiente-salas.jpg
+  ambiente-refeitorio.jpg
+  ambiente-sensorial.jpg
+  ambiente-biblioteca.jpg
+  ambiente-entrada.jpg
+
+OUTRAS
+  proposta.jpg                1200x1200 — crianças fazendo atividade (mãos/costas)
+  diretora.jpg                1000x1250 (4:5, vertical) — retrato da diretora
+
+Dica: prefira ambientes, mãos e crianças de costas, e tenha autorização de
+imagem das famílias. Fotos até ~500 KB cada (o site otimiza, mas o repositório
+fica mais leve).

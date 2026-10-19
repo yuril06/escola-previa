@@ -3,12 +3,15 @@
  * Uso: npm run blur
  * Saída: src/config/blur-data.json  ({ "url-da-foto": "data:image/webp;base64,..." })
  */
+import { readdirSync } from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import sharp from "sharp";
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+// Mesmo cálculo do next.config.ts: diz ao config quais fotos locais existem.
+process.env.ARQUIVOS_ESCOLA = readdirSync(path.join(raiz, "public/escola")).join("|");
 const { escola } = await import(pathToFileURL(path.join(raiz, "src/config/escola.ts")).href);
 
 const ehImagem = (v) =>

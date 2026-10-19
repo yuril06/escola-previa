@@ -2,6 +2,8 @@ import { DemoBanner } from "@/components/DemoBanner";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { WhatsAppFlutuante } from "@/components/WhatsAppFlutuante";
+import { CtaFinal } from "@/components/sections/CtaFinal";
+import { Equipe } from "@/components/sections/Equipe";
 import { AgendarVisita } from "@/components/sections/AgendarVisita";
 import { Depoimentos } from "@/components/sections/Depoimentos";
 import { Estrutura } from "@/components/sections/Estrutura";
@@ -29,10 +31,12 @@ export default function Home() {
         <Estrutura />
         <Rotina />
         <Proposta />
+        <Equipe />
         <Depoimentos />
         <AgendarVisita />
         <Faq />
         <Localizacao />
+        <CtaFinal />
       </main>
       <Footer />
       <WhatsAppFlutuante />

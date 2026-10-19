@@ -1,5 +1,43 @@
 import type { SVGProps } from "react";
-import { Camera, CalendarCheck, HeartHandshake, Salad, ShieldCheck, Sprout } from "lucide-react";
+import {
+  Apple,
+  CalendarCheck,
+  Camera,
+  Clock,
+  Coffee,
+  Heart,
+  HeartHandshake,
+  House,
+  Moon,
+  Music,
+  Palette,
+  Salad,
+  ShieldCheck,
+  Soup,
+  Sprout,
+  Star,
+  Sunrise,
+  Sunset,
+  TreePine,
+  Utensils,
+} from "lucide-react";
+
+/** Ícones da faixa de números (campo `icone` em `numeros`). */
+export const iconesNumeros = { casa: House, coracao: Heart, relogio: Clock, estrela: Star } as const;
+
+/** Ícones da rotina (campo `icone` em `rotina`). */
+export const iconesRotina = {
+  chegada: Sunrise,
+  cafe: Coffee,
+  arte: Palette,
+  parque: TreePine,
+  refeicao: Utensils,
+  sono: Moon,
+  lanche: Apple,
+  musica: Music,
+  jantar: Soup,
+  saida: Sunset,
+} as const;
 
 /** Ícones de marca (o lucide não inclui logos de marcas). */
 export function IconeWhatsApp(props: SVGProps<SVGSVGElement>) {

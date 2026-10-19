@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
 import { escola } from "@/config/escola";
 import { cn } from "@/lib/utils";
 import { CabecalhoSecao } from "../ui/CabecalhoSecao";
@@ -61,15 +61,28 @@ export function Depoimentos() {
           {lista.map((d, i) => (
             <li key={d.nome} className="w-[86%] shrink-0 snap-start sm:w-[60%] lg:w-[calc((100%-2rem)/2.4)]">
               <figure className="flex h-full flex-col rounded-4xl border border-linha bg-white p-7 shadow-suave sm:p-8">
-                <span className={cn("grid size-11 place-items-center rounded-2xl text-primaria", fundos[i % fundos.length])}>
-                  <Quote className="size-5 fill-current" aria-hidden />
-                </span>
+                <div className="flex items-center justify-between">
+                  <span className="flex text-secundaria" role="img" aria-label="5 de 5 estrelas">
+                    {Array.from({ length: 5 }).map((_, k) => (
+                      <Star key={k} className="size-4 fill-current" aria-hidden />
+                    ))}
+                  </span>
+                  <Quote className="size-8 fill-current text-primaria-clara" aria-hidden />
+                </div>
                 <blockquote className="mt-5 flex-1 text-[1.06rem] leading-relaxed text-texto sm:text-lg">
                   “{d.texto}”
                 </blockquote>
-                <figcaption className="mt-6 border-t border-linha pt-5">
-                  <span className="block font-semibold">{d.nome}</span>
-                  <span className="block text-sm text-texto-suave">{d.relacao}</span>
+                <figcaption className="mt-6 flex items-center gap-3 border-t border-linha pt-5">
+                  <span
+                    aria-hidden
+                    className={cn("grid size-11 shrink-0 place-items-center rounded-full font-display font-semibold text-primaria", fundos[i % fundos.length])}
+                  >
+                    {d.nome.charAt(0)}
+                  </span>
+                  <span>
+                    <span className="block font-semibold">{d.nome}</span>
+                    <span className="block text-sm text-texto-suave">{d.relacao}</span>
+                  </span>
                 </figcaption>
               </figure>
             </li>

@@ -115,6 +115,13 @@ export const escola = {
   hero: {
     selo: "Matrículas 2027 abertas",
     titulo: "Conheça cada cantinho da escola antes mesmo da visita",
+    /** Trecho do título que ganha o sublinhado desenhado à mão (precisa existir no título). */
+    tituloDestaque: "cada cantinho",
+    /** Prova social ao lado dos botões. */
+    nota: "4,9",
+    notaTexto: "no Google · mais de 180 famílias avaliaram",
+    /** Selo flutuante sobre o vídeo. */
+    seloVideo: "Câmeras ao vivo para os pais",
     subtitulo:
       "Um berçário e educação infantil de bairro, com rotina acolhedora, equipe próxima e câmeras para você acompanhar o dia do seu filho de onde estiver.",
     ctaPrincipal: "Agendar uma visita",
@@ -134,13 +141,13 @@ export const escola = {
     capa: foto("capa-video.jpg", "1567746455504-cb3213f8f5b8"),
     capaAlt: "Sala ampla e iluminada com mesinhas de madeira, pufes coloridos e estantes de brinquedos",
   },
-  /** Faixa com 4 números de confiança logo abaixo do hero. */
+  /** Faixa com 4 números de confiança. Ícones: casa, coracao, relogio, estrela */
   numeros: [
-    { valor: "12 anos", rotulo: "cuidando de famílias do bairro" },
-    { valor: "1 para 4", rotulo: "educadora por bebê no berçário" },
-    { valor: "7h às 19h", rotulo: "período integral ou meio período" },
-    { valor: "4,9 ★", rotulo: "nota no Google (180+ avaliações)" },
-  ],
+    { icone: "casa", valor: "12 anos", rotulo: "cuidando de famílias do bairro" },
+    { icone: "coracao", valor: "1 para 4", rotulo: "educadora por bebê no berçário" },
+    { icone: "relogio", valor: "7h às 19h", rotulo: "período integral ou meio período" },
+    { icone: "estrela", valor: "4,9", rotulo: "nota no Google (180+ avaliações)" },
+  ] as const,
 
   // ---------------------------------------------------------------------------
   // TURMAS
@@ -245,18 +252,19 @@ export const escola = {
   // ---------------------------------------------------------------------------
   // ROTINA DO DIA
   // ---------------------------------------------------------------------------
+  /** Ícones: chegada, cafe, arte, parque, refeicao, sono, lanche, musica, jantar, saida */
   rotina: [
-    { hora: "7h", titulo: "Acolhida", descricao: "Chegada tranquila, brincadeiras livres e conversa com a família." },
-    { hora: "8h", titulo: "Café da manhã", descricao: "Frutas, pães e leite, com cardápio da nutricionista." },
-    { hora: "9h", titulo: "Atividades e projetos", descricao: "Arte, música, movimento e exploração por turma." },
-    { hora: "10h", titulo: "Parque e solário", descricao: "Brincar ao ar livre e banho de sol." },
-    { hora: "11h", titulo: "Almoço", descricao: "Comida caseira feita na escola, todos os dias." },
-    { hora: "12h", titulo: "Soninho", descricao: "Descanso respeitando o ritmo de cada criança." },
-    { hora: "14h30", titulo: "Lanche e higiene", descricao: "Lanche da tarde, troca e cuidado com o corpo." },
-    { hora: "15h30", titulo: "Oficinas", descricao: "Culinária, histórias, brincadeiras cantadas e sensorial." },
-    { hora: "17h", titulo: "Jantar", descricao: "Refeição leve para chegar em casa tranquilo." },
-    { hora: "17h30", titulo: "Saída até 19h", descricao: "Brincadeiras calmas e entrega com recado do dia." },
-  ],
+    { icone: "chegada", hora: "7h", titulo: "Acolhida", descricao: "Chegada tranquila, brincadeiras livres e conversa com a família." },
+    { icone: "cafe", hora: "8h", titulo: "Café da manhã", descricao: "Frutas, pães e leite, com cardápio da nutricionista." },
+    { icone: "arte", hora: "9h", titulo: "Atividades e projetos", descricao: "Arte, música, movimento e exploração por turma." },
+    { icone: "parque", hora: "10h", titulo: "Parque e solário", descricao: "Brincar ao ar livre e banho de sol." },
+    { icone: "refeicao", hora: "11h", titulo: "Almoço", descricao: "Comida caseira feita na escola, todos os dias." },
+    { icone: "sono", hora: "12h", titulo: "Soninho", descricao: "Descanso respeitando o ritmo de cada criança." },
+    { icone: "lanche", hora: "14h30", titulo: "Lanche e higiene", descricao: "Lanche da tarde, troca e cuidado com o corpo." },
+    { icone: "musica", hora: "15h30", titulo: "Oficinas", descricao: "Culinária, histórias, brincadeiras cantadas e sensorial." },
+    { icone: "jantar", hora: "17h", titulo: "Jantar", descricao: "Refeição leve para chegar em casa tranquilo." },
+    { icone: "saida", hora: "17h30", titulo: "Saída até 19h", descricao: "Brincadeiras calmas e entrega com recado do dia." },
+  ] as const,
 
   // ---------------------------------------------------------------------------
   // PROPOSTA PEDAGÓGICA
@@ -298,6 +306,30 @@ export const escola = {
       descricao: "Sono, alimentação, trocas e fotos do dia direto no app.",
     },
   ] as const,
+
+  // ---------------------------------------------------------------------------
+  // QUEM CUIDA (diretora / fundadora)
+  // ---------------------------------------------------------------------------
+  equipe: {
+    titulo: "Uma escola com rosto, nome e porta aberta",
+    texto:
+      "Abri a Casa Jacarandá depois de 15 anos em sala de aula, com uma ideia simples: uma escola pequena o bastante para conhecer cada família pelo nome. Até hoje recebo pessoalmente cada visita, e é isso que eu gostaria de fazer com você.",
+    nome: "Patrícia Andrade",
+    cargo: "Diretora e fundadora · Pedagoga, pós em Educação Infantil",
+    foto: foto("diretora.jpg", "1580489944761-15a19d654956"),
+    alt: "Retrato da diretora da escola sorrindo em um ambiente iluminado",
+    destaques: [
+      { valor: "100%", rotulo: "das educadoras formadas em Pedagogia" },
+      { valor: "8 anos", rotulo: "tempo médio da equipe na escola" },
+      { valor: "Todo ano", rotulo: "reciclagem em primeiros socorros" },
+    ],
+  },
+
+  /** Faixa de chamada final, antes do rodapé. */
+  ctaFinal: {
+    titulo: "As vagas de 2027 estão sendo preenchidas",
+    texto: "Agende uma visita sem compromisso e conheça a escola com calma.",
+  },
 
   // ---------------------------------------------------------------------------
   // DEPOIMENTOS (na demo, são exemplos e aparecem marcados como tal)
