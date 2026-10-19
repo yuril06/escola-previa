@@ -26,11 +26,6 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 bg-fundo">
-      {escola.isDemo && (
-        <p className="t-nota bg-texto px-4 py-1.5 text-center text-white">
-          Site demonstrativo: escola, fotos e depoimentos fictícios
-        </p>
-      )}
       <div className="moldura flex h-[4.5rem] items-center justify-between gap-6">
         <a href="#inicio" onClick={() => setAberto(false)} className="shrink-0">
           <Logo />
@@ -73,7 +68,7 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="absolute inset-x-0 top-full h-[calc(100dvh-6rem)] overflow-y-auto overscroll-contain bg-fundo lg:hidden"
+            className="absolute inset-x-0 top-full h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain bg-fundo lg:hidden"
           >
             <nav aria-label="Menu" className="moldura flex flex-col gap-1 py-6">
               {[...links, { href: "#proposta", label: "Proposta" }, { href: "#familias", label: "Famílias" }].map(

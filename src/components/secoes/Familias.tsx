@@ -18,9 +18,9 @@ function serrilhado(dentes = 18, altura = 8) {
 const CORTE = serrilhado();
 
 const bilhetes = [
-  { giro: "lg:-rotate-4 -rotate-2", altura: "lg:min-h-[27rem]", lugar: "mr-auto lg:mt-16", inicial: "bg-destaque-clara" },
-  { giro: "lg:rotate-2 rotate-2", altura: "lg:min-h-[32rem]", lugar: "ml-auto lg:mt-4", inicial: "bg-suave-clara" },
-  { giro: "lg:rotate-5 -rotate-3", altura: "lg:min-h-[37rem]", lugar: "mr-auto lg:mt-24", inicial: "bg-secundaria-clara" },
+  { giro: "lg:-rotate-4 -rotate-2", lugar: "mr-auto lg:mt-16", inicial: "bg-destaque-clara" },
+  { giro: "lg:rotate-2 rotate-2", lugar: "ml-auto lg:mt-4", inicial: "bg-suave-clara" },
+  { giro: "lg:rotate-5 -rotate-3", lugar: "mr-auto lg:mt-24", inicial: "bg-secundaria-clara" },
 ];
 
 /** Bilhetes de papel inclinados sobre um campo de cor, com a prancha do jacarandá entre eles. */
@@ -29,7 +29,7 @@ export function Familias() {
     <section
       id="familias"
       aria-labelledby="titulo-familias"
-      className="mt-28 overflow-hidden bg-destaque-clara pt-24 lg:mt-40 lg:max-h-[56rem] lg:pt-32"
+      className="mt-28 overflow-hidden bg-destaque-clara py-24 lg:mt-40 lg:py-32"
     >
       <div className="moldura">
         <Reveal className="max-w-2xl">
@@ -41,22 +41,21 @@ export function Familias() {
           )}
         </Reveal>
 
-        <ul className="mt-12 flex flex-col pb-20 lg:mt-14 lg:flex-row lg:items-start lg:justify-center lg:pb-0 lg:pl-[6%]">
+        <ul className="mt-12 flex flex-col lg:mt-14 lg:flex-row lg:items-start lg:justify-center lg:pl-[6%]">
           {escola.depoimentos.slice(0, 3).map((d, i) => (
             <li
               key={d.nome}
               className={cn(
                 "w-[82%] max-w-[22rem] sm:w-[60%] lg:w-[19rem] lg:max-w-none lg:shrink-0",
-                i > 0 && "-mt-8 lg:mt-0 lg:-ml-10",
+                i > 0 && "-mt-8 lg:mt-0 lg:-ml-5",
                 bilhetes[i].lugar,
               )}
             >
               <Reveal delay={i * 0.09}>
                 <figure
                   className={cn(
-                    "flex flex-col bg-fundo px-7 pt-10 pb-12 transition-transform duration-300 hover:rotate-0",
+                    "flex flex-col bg-fundo px-7 pt-10 pb-12 transition-transform duration-300 hover:rotate-0 lg:pr-9",
                     bilhetes[i].giro,
-                    bilhetes[i].altura,
                   )}
                   style={{ clipPath: CORTE }}
                 >

@@ -38,7 +38,7 @@ const arquivoLocal = (...nomes: string[]) => {
 };
 
 export const escola = {
-  /** Mostra a faixa "Site demonstrativo" e marca os depoimentos como exemplo. */
+  /** Marca os depoimentos como exemplo e credita as fotos de exemplo no rodapé. */
   isDemo: true,
 
   // ---------------------------------------------------------------------------
@@ -327,8 +327,6 @@ export const escola = {
     equipeTitulo: "A equipe",
     equipeTexto:
       "Todas as educadoras são formadas em Pedagogia, ficam em média 8 anos com a gente e refazem o curso de primeiros socorros todo ano.",
-    foto: foto("diretora.jpg", "1580489944761-15a19d654956"),
-    alt: "Retrato da diretora sorrindo, de camiseta branca, em fundo claro",
   },
 
   // ---------------------------------------------------------------------------
