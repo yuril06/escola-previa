@@ -1,0 +1,8 @@
+Coloque aqui os arquivos da escola (logo, fotos e vídeo) e aponte os caminhos
+em src/config/escola.ts. Exemplos:
+
+  /public/escola/logo.svg       ->  logo.imagem: "/escola/logo.svg"
+  /public/escola/bercario.jpg   ->  foto: "/escola/bercario.jpg"
+  /public/escola/tour.mp4       ->  video.url: "/escola/tour.mp4"
+
+Depois rode:  npm run blur   (gera os placeholders desfocados das fotos novas)

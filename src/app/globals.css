@@ -1,26 +1,120 @@
 @import "tailwindcss";
 
+/*
+ * As cores reais vêm de src/config/escola.ts e são injetadas no <head> como
+ * --cor-* (ver src/app/layout.tsx). Os valores abaixo são só fallback.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --cor-primaria: #2e7552;
+  --cor-secundaria: #f2b441;
+  --cor-suave: #9ccbe8;
+  --cor-destaque: #d9506c;
+  --cor-fundo: #fbf8f2;
+  --cor-texto: #22302a;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primaria: var(--cor-primaria);
+  --color-primaria-escura: color-mix(in oklab, var(--cor-primaria) 78%, black);
+  --color-primaria-clara: color-mix(in oklab, var(--cor-primaria) 12%, white);
+  --color-secundaria: var(--cor-secundaria);
+  --color-secundaria-clara: color-mix(in oklab, var(--cor-secundaria) 20%, white);
+  --color-suave: var(--cor-suave);
+  --color-suave-clara: color-mix(in oklab, var(--cor-suave) 25%, white);
+  --color-destaque: var(--cor-destaque);
+  --color-destaque-clara: color-mix(in oklab, var(--cor-destaque) 12%, white);
+  --color-erro: color-mix(in oklab, var(--cor-destaque) 72%, black);
+  --color-fundo: var(--cor-fundo);
+  --color-creme: color-mix(in oklab, var(--cor-fundo) 82%, var(--cor-secundaria));
+  --color-texto: var(--cor-texto);
+  --color-texto-suave: color-mix(in oklab, var(--cor-texto) 72%, white);
+  --color-linha: color-mix(in oklab, var(--cor-texto) 10%, transparent);
+
+  --font-sans: var(--fonte-corpo), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--fonte-display), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-4xl: 2rem;
+  --radius-5xl: 2.5rem;
+
+  --shadow-suave: 0 1px 2px rgb(34 48 42 / 0.04), 0 8px 24px -8px rgb(34 48 42 / 0.12);
+  --shadow-elevada: 0 2px 4px rgb(34 48 42 / 0.04), 0 24px 48px -16px rgb(34 48 42 / 0.22);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--cor-secundaria) 45%, white);
+}
+
+:focus-visible {
+  outline: 3px solid var(--cor-primaria);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+  .titulo-secao {
+    @apply font-display text-[2rem] leading-[1.08] font-semibold tracking-[-0.02em] text-balance sm:text-5xl;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold tracking-[0.14em] text-primaria uppercase;
+  }
+  .btn-primario,
+  .btn-secundario {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-[0.95rem] font-semibold transition duration-200 active:scale-[0.98];
+  }
+  .btn-primario {
+    @apply bg-primaria text-white shadow-[0_8px_20px_-8px_var(--cor-primaria)] hover:bg-primaria-escura;
+  }
+  .btn-secundario {
+    @apply border border-linha bg-white text-texto hover:border-primaria/40 hover:bg-primaria-clara;
+  }
+}
+
+/* Barra de rolagem escondida nos carrosséis com swipe */
+.sem-scrollbar {
+  scrollbar-width: none;
+}
+.sem-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes entrada {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animar-entrada {
+  animation: entrada 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
